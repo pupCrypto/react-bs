@@ -1,0 +1,10 @@
+.spreadsheet__table {
+  border-collapse: collapse;
+}
+.spreadsheet__table .table__columns th {
+  border: 1px solid gray;
+  font-weight: normal;
+}
+.table__cell {
+  border: 1px solid gray;
+}
