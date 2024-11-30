@@ -1,10 +1,24 @@
+* {
+  --default-border-color: gray;
+}
+
 .spreadsheet__table {
   border-collapse: collapse;
 }
 .spreadsheet__table .table__columns th {
-  border: 1px solid gray;
+  border: 1px solid var(--default-border-color);
   font-weight: normal;
 }
 .table__cell {
-  border: 1px solid gray;
+  border: 1px solid var(--default-border-color);
+  padding: 0;
+  box-sizing: border-box;
+}
+.table__cell input {
+  border: none;
+  padding: 0;
+  height: 100%;
+}
+.table__cell input:focus {
+  outline: none;
 }

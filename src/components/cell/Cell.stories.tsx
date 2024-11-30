@@ -10,7 +10,8 @@ const meta: Meta<typeof Cell> = {
     component: Cell,
     render: (props: CellProps) => {
       const cellApi = useCellApi(props.col, props.row);
-      cellApi.setValue("hdsafello");
+      cellApi.setValue("hello");
+      cellApi.setBorders({top: {color: "red", width: 1}});
       return (
         <Cell {...props} />
       );
