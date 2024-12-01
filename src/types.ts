@@ -15,7 +15,7 @@ export interface CellBorders {
 export type CellValue = number | undefined | string;
 
 export interface Cell {
-  borders: CellBorders;
-  value: CellValue;
+  borders?: CellBorders;
+  value?: CellValue;
 };
 export type Matrix = Array<Array<Cell>>;

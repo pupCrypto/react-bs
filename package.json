@@ -36,7 +36,9 @@
     "ts-jest": "^29.2.5"
   },
   "dependencies": {
-    "jotai": "^2.10.3"
+    "@reduxjs/toolkit": "^2.4.0",
+    "jotai": "^2.10.3",
+    "react-redux": "^9.1.2"
   },
   "jest": {
     "transform": {

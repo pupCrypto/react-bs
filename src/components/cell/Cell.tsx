@@ -1,6 +1,5 @@
 import React from "react";
 import { ColIdx, RowIdx } from "../../types";
-import { getInputBoxShadow } from "../../misc/styles";
 import useCellApi from "../../api/cell";
 
 
@@ -10,7 +9,10 @@ export interface CellProps {
 };
 
 export default function Cell(props: CellProps) {
+  const inputRef = React.useRef<HTMLSpanElement>(null);
   const cellApi = useCellApi(props.col, props.row);
+  const isActive = cellApi.useIsActive();
+  console.log(isActive);
   const borders = cellApi.useBorders();
   const value = cellApi.useValue();
   const shellStyle = {
@@ -19,9 +21,25 @@ export default function Cell(props: CellProps) {
     borderBottom: `${borders?.bottom?.width}px solid ${borders?.bottom?.color}`,
     borderLeft: `${borders?.left?.width}px solid ${borders?.left?.color}`,
   };
+  const onClick = () => {
+    cellApi.setActive();
+  }
+  const onKeyDown = () => {
+    console.log('pressed');
+  }
+  React.useEffect(() => {
+    if (isActive) {
+      inputRef.current?.focus();
+    }
+  }, [isActive]);
   return (
-    <td className="table__cell" style={shellStyle}>
-      <input defaultValue={value} />
+    <td
+      className="table__cell"
+      onClick={onClick}
+      onKeyDown={onKeyDown}
+      style={shellStyle}
+    >
+      <span ref={inputRef} contentEditable>{value}</span>
     </td>
   );
 }

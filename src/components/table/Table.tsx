@@ -1,12 +1,15 @@
 import React from "react";
-import Columns from "../columns/Columns";
-import Rows from "../rows/Rows";
+import { HeadProps } from "../head/Head";
+import { BodyProps } from "../body/Body";
 
-export default function Table() {
+export interface TableProps {
+  children: React.ReactElement<HeadProps | BodyProps>[];
+}
+
+export default function Table(props: TableProps) {
   return (
     <table className="spreadsheet__table">
-      <Columns />
-      <Rows />
+      {props.children}
     </table>
   );
 }

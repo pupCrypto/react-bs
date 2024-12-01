@@ -9,16 +9,26 @@
   border: 1px solid var(--default-border-color);
   font-weight: normal;
 }
-.table__cell {
+.table__head th {
   border: 1px solid var(--default-border-color);
+}
+.table__body td {
+  border: 1px solid var(--default-border-color);
+}
+.table__cell {
   padding: 0;
   box-sizing: border-box;
+  width: 90px;
+  height: 20px;
 }
-.table__cell input {
+.table__cell:hover {
+  cursor: cell;
+}
+.table__cell span {
   border: none;
   padding: 0;
   height: 100%;
 }
-.table__cell input:focus {
+.table__cell span:focus {
   outline: none;
 }
