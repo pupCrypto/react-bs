@@ -1,5 +1,6 @@
 * {
   --default-border-color: gray;
+  --select-border-color: rgb(0, 110, 255);
 }
 
 .spreadsheet__table {
@@ -9,26 +10,36 @@
   border: 1px solid var(--default-border-color);
   font-weight: normal;
 }
+#corner {
+  width: 30px;
+}
 .table__head th {
   border: 1px solid var(--default-border-color);
+  width: 90px;
 }
 .table__body td {
   border: 1px solid var(--default-border-color);
 }
 .table__cell {
+  caret-color: transparent;
   padding: 0;
   box-sizing: border-box;
   width: 90px;
   height: 20px;
 }
+.table__cell[is-active] {
+  outline: 2px solid var(--select-border-color);
+}
+.table__cell[is-typing] {
+  caret-color: black;
+}
 .table__cell:hover {
   cursor: cell;
 }
-.table__cell span {
+.table__cell div {
   border: none;
   padding: 0;
-  height: 100%;
 }
-.table__cell span:focus {
+.table__cell div:focus {
   outline: none;
 }

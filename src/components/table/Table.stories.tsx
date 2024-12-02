@@ -8,6 +8,7 @@ import Cell from '../cell/Cell';
 import Column from '../column/Column';
 import Head from '../head/Head';
 import Row from '../row/Row';
+import WrapperProvider from '../Provider';
 
 import useCellApi from '../../api/cell';
 
@@ -15,13 +16,14 @@ import '../index.css';
 
 const meta: Meta<typeof Table> = {
     component: Table,
+    decorators: [(Story) => (<WrapperProvider><Story /></WrapperProvider>)],
     render: (args) => {
         const cellApi = useCellApi(0, 0);
         const cellApi1 = useCellApi(1, 0);
 
         cellApi.setValue(1);
         cellApi1.setValue(3);
-        cellApi1.setBorders({bottom: {color: "red", width: 3}, top: {color: "red", width: 3}});
+        cellApi1.setBorders({bottom: {color: "red", width: 3}, top: {color: "red", width: 3}, right: {color: "red", width: 2}});
         return (
             <Table>
                 <Head>

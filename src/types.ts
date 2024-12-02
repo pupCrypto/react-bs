@@ -19,3 +19,4 @@ export interface Cell {
   value?: CellValue;
 };
 export type Matrix = Array<Array<Cell>>;
+export type Row = Array<Cell>;
