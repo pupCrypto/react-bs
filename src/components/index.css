@@ -3,13 +3,36 @@
   --select-border-color: rgb(0, 110, 255);
   --selected-cell-color: #e7f0fd;
 }
-
+.spreadsheet {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  gap: 20px;
+}
 .spreadsheet__table {
   border-collapse: collapse;
 }
 .spreadsheet__table .table__columns th {
   border: 1px solid var(--default-border-color);
   font-weight: normal;
+}
+.spreadsheet__toolbar {
+  width: 100%;
+  height: 40px;
+  background-color: var(--selected-cell-color);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+.toolbar__tool {
+  padding: 5px;
+  border-radius: 5px;
+}
+.toolbar__tool:hover {
+  cursor: pointer;
+  background-color: rgb(189, 240, 255);
 }
 #corner {
   width: 30px;

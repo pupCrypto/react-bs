@@ -39,9 +39,9 @@ const Row = React.memo((props: RowProps) => {
   }, [row.length]);
   return (
     <tr>
-      <td style={{fontWeight: 'bold'}}>{label}</td>
-      {/* {cellProps.map((props, index) => <Cell key={index} {...props} />)} */}
-      {...cells}
+      <td style={{fontWeight: 'bold', textAlign: "center", userSelect: "none"}}>{label}</td>
+      {cellProps.map((props, index) => <Cell key={index} {...props} />)}
+      {/* {...cells} */}
     </tr>
   );
 }, (prev, next) => prev.index === next.index);

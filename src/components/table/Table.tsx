@@ -1,15 +1,18 @@
 import React from "react";
-import { HeadProps } from "../head/Head";
-import { BodyProps } from "../body/Body";
+import Head, { HeadProps } from "../head/Head";
+import Body, { BodyProps } from "../body/Body";
 
 export interface TableProps {
-  children: React.ReactElement<HeadProps | BodyProps>[];
+  children?: React.ReactElement<HeadProps | BodyProps>[];
 }
 
 export default function Table(props: TableProps) {
+  const head = props.children ? props.children.find(child => child.type === Head) : <Head />;
+  const body = props.children ? props.children.find(child => child.type === Body) : <Body />;
   return (
     <table className="spreadsheet__table">
-      {props.children}
+      {head}
+      {body}
     </table>
   );
 }

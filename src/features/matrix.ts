@@ -1,6 +1,6 @@
 import { noneNeg, notOver } from "../misc/cast";
 import { cellExist, generateMatrix, getSortedSelection } from "../misc/matrix";
-import { Selection } from "../types";
+import { CellBorders, Selection } from "../types";
 
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -84,6 +84,18 @@ export const matrixSlice = createSlice({
     setSelection: (state, action) => {
       const selection: Partial<Selection> = action.payload;
       state.selection = { ...state.selection, ...selection };
+    },
+    setSelectionBorders: (state, action) => {
+      const borders: CellBorders = action.payload;
+      if (!cellExist(state.selection.start, state.matrix) || !cellExist(state.selection.end, state.matrix)) {
+        return;
+      }
+      const selection = getSortedSelection(state.selection);
+      for (let row = selection.start.row; row <= selection.end.row; row++) {
+        for (let col = selection.start.col; col <= selection.end.col; col++) {
+          state.matrix[row][col].borders = { ...state.matrix[row][col].borders, ...borders };
+        }
+      }
     },
     removeLastColumn: (state) => {
       state.matrix.forEach(row => row.pop());
