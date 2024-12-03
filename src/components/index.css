@@ -1,6 +1,7 @@
 * {
   --default-border-color: gray;
   --select-border-color: rgb(0, 110, 255);
+  --selected-cell-color: #e7f0fd;
 }
 
 .spreadsheet__table {
@@ -29,6 +30,9 @@
 }
 .table__cell[is-active] {
   outline: 2px solid var(--select-border-color);
+}
+.table__cell[is-in-selection] {
+  background-color: var(--selected-cell-color)
 }
 .table__cell[is-typing] {
   caret-color: black;

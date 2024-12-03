@@ -1,27 +1,25 @@
-// import { atom } from "jotai";
 import { noneNeg, notOver } from "../misc/cast";
-import { generateMatrix } from "../misc/matrix";
-// import { ColIdx, Matrix, RowIdx } from "../types";
-
-// export default atom<{ activeCell: { col: ColIdx, row: RowIdx }, matrix: Matrix }>({
-//   activeCell: {
-//     col: -1,
-//     row: -1,
-//   },
-//   matrix: generateMatrix({ cols: 10, rows: 10 }),
-// });
-
+import { cellExist, generateMatrix, getSortedSelection } from "../misc/matrix";
+import { Selection } from "../types";
 
 import { createSlice } from "@reduxjs/toolkit";
+
+const startPosition = {
+  col: -1,
+  row: -1
+};
 
 export const matrixSlice = createSlice({
   name: "matrix",
   initialState: {
-    activeCell: {
-      col: -1,
-      row: -1,
-    },
+    activeCell: startPosition,
     matrix: generateMatrix({ cols: 10, rows: 10 }),
+    pressedCell: startPosition,
+    releasedCell: startPosition,
+    selection: {
+      start: startPosition,
+      end: startPosition,
+    },
   },
   reducers: {
     addColumn: (state) => {
@@ -29,6 +27,24 @@ export const matrixSlice = createSlice({
     },
     appendRow: (state) => {
       state.matrix.push(new Array(10).fill(0).map(() => ({})));
+    },
+    cellHovered: (state, action) => {
+      const { col, row } = action.payload;
+      if (cellExist(state.pressedCell, state.matrix) && !cellExist(state.releasedCell, state.matrix)) {
+        state.selection.end = { col, row };
+      }
+    },
+    cellPressed: (state, action) => {
+      const { col, row } = action.payload;
+      state.activeCell = { col, row };
+      state.selection = {start: { col, row }, end: startPosition};
+      state.pressedCell = { col, row };
+      state.releasedCell = startPosition;
+    },
+    cellReleased: (state, action) => {
+      const { col, row } = action.payload;
+      state.selection.end = { col, row }
+      state.releasedCell = { col, row };
     },
     moveActiveCell: (state, action) => {
       const direction = action.payload;
@@ -57,12 +73,17 @@ export const matrixSlice = createSlice({
       const { col, row, borders } = action.payload;
       state.matrix[row][col].borders = { ...state.matrix[row][col].borders, ...borders };
     },
+
     setMatrix: (state, action) => {
       state.matrix = action.payload;
     },
     setValue: (state, action) => {
       const { col, row, value } = action.payload;
       state.matrix[row][col].value = value;
+    },
+    setSelection: (state, action) => {
+      const selection: Partial<Selection> = action.payload;
+      state.selection = { ...state.selection, ...selection };
     },
     removeLastColumn: (state) => {
       state.matrix.forEach(row => row.pop());

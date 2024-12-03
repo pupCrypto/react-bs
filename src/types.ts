@@ -3,6 +3,10 @@ export type RowIdx = number;
 export type RowLength = number;
 
 // Cell related types
+export interface CellPosition {
+  col: ColIdx;
+  row: RowIdx;
+}
 export interface CellBorder {
   width: number;
   color: string;
@@ -21,3 +25,8 @@ export interface Cell {
 };
 export type Matrix = Array<Array<Cell>>;
 export type Row = Array<Cell>;
+
+export interface Selection {
+  start: CellPosition;
+  end: CellPosition;
+}
