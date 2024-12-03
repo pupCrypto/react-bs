@@ -23,7 +23,7 @@ const meta: Meta<typeof Table> = {
 
         cellApi.setValue(1);
         cellApi1.setValue(3);
-        cellApi1.setBorders({bottom: {color: "red", width: 3}, top: {color: "red", width: 3}, right: {color: "red", width: 2}});
+        cellApi1.setBorders({bottom: {color: "red", width: 2}, top: {color: "red", width: 3}, right: {color: "red", width: 2}});
         return (
             <Table>
                 <Head>

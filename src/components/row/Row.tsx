@@ -1,6 +1,6 @@
 import React from "react";
 import Cell, { CellProps } from "../cell/Cell";
-import { RowIdx } from "../../types";
+import { Row, RowIdx } from "../../types";
 import { getRowLabel } from "../../misc/table";
 import { useMatrixRow } from "../../hooks/matrix";
 
@@ -11,6 +11,7 @@ export interface RowProps {
 }
 
 const Row = React.memo((props: RowProps) => {
+  const [cells, setCells] = React.useState<React.ReactElement<CellProps>[]>([]);
   const label = props.label || getRowLabel(props.index);
   props.children.forEach((child) => {
     if (child.props.row !== props.index) {
@@ -18,14 +19,29 @@ const Row = React.memo((props: RowProps) => {
     }
   });
   const row = useMatrixRow(props.index);
-  const cells: CellProps[] = new Array(row.length).fill(0).map((val, index) => ({col: index, row: props.index}));
+  const cellProps: CellProps[] = new Array(row.length).fill(0).map((val, index) => ({col: index, row: props.index}));
   for (var child of props.children) {
-    cells[child.props.col] = child.props;
+    cellProps[child.props.col] = child.props;
   }
+  const getCellProps = (row: Row) => {
+    const cellProps: CellProps[] = new Array(row.length).fill(0).map((val, index) => ({col: index, row: props.index}));
+    for (var child of props.children) {
+      cellProps[child.props.col] = child.props;
+    }
+  }
+  React.useEffect(() => {
+    if (cells.length > row.length) {
+      setCells(cells.slice(0, row.length));
+    } else if (cells.length < row.length) {
+      const newCells = new Array(row.length - cells.length).fill(0).map((val, index) => cellProps[index]).map((props, index) => <Cell key={index} {...props} />);
+      setCells([...cells, ...newCells]);
+    }
+  }, [row.length]);
   return (
     <tr>
       <td style={{fontWeight: 'bold'}}>{label}</td>
-      {cells.map((props, index) => <Cell key={index} {...props} />)}
+      {/* {cellProps.map((props, index) => <Cell key={index} {...props} />)} */}
+      {...cells}
     </tr>
   );
 }, (prev, next) => prev.index === next.index);

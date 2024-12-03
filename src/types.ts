@@ -1,5 +1,6 @@
 export type ColIdx = number;
 export type RowIdx = number;
+export type RowLength = number;
 
 // Cell related types
 export interface CellBorder {

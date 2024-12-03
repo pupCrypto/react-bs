@@ -24,6 +24,9 @@ export const matrixSlice = createSlice({
     matrix: generateMatrix({ cols: 10, rows: 10 }),
   },
   reducers: {
+    addColumn: (state) => {
+      state.matrix.forEach(row => row.push({}));
+    },
     appendRow: (state) => {
       state.matrix.push(new Array(10).fill(0).map(() => ({})));
     },
@@ -60,6 +63,9 @@ export const matrixSlice = createSlice({
     setValue: (state, action) => {
       const { col, row, value } = action.payload;
       state.matrix[row][col].value = value;
+    },
+    removeLastColumn: (state) => {
+      state.matrix.forEach(row => row.pop());
     },
   },
 });
